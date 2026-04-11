@@ -1,0 +1,80 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600&display=swap');
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-headline: "Plus Jakarta Sans", sans-serif;
+  
+  --color-background: #100b1b;
+  --color-foreground: #ece1f9;
+  
+  --color-primary: #c59aff;
+  --color-primary-dim: #9547f7;
+  --color-secondary: #00e3fd;
+  --color-tertiary: #ff6f7c;
+  
+  --color-surface: #100b1b;
+  --color-surface-container: #1c162a;
+  --color-surface-container-high: #231c32;
+  --color-surface-bright: #302841;
+  
+  --color-on-surface: #ece1f9;
+  --color-on-surface-variant: #b0a7be;
+
+  --color-border: #231c32;
+  --color-ring: #c59aff;
+
+  --radius-lg: 2rem;
+  --radius-md: 1.5rem;
+  --radius-sm: 1rem;
+}
+
+:root {
+  --background: #100b1b;
+  --foreground: #ece1f9;
+  
+  --card: #1c162a;
+  --card-foreground: #ece1f9;
+  
+  --popover: #1c162a;
+  --popover-foreground: #ece1f9;
+  
+  --primary: #c59aff;
+  --primary-foreground: #100b1b;
+  
+  --secondary: #00e3fd;
+  --secondary-foreground: #100b1b;
+  
+  --muted: #231c32;
+  --muted-foreground: #b0a7be;
+  
+  --accent: #302841;
+  --accent-foreground: #ece1f9;
+  
+  --destructive: #ff6f7c;
+  --destructive-foreground: #ece1f9;
+  
+  --border: #231c32;
+  --input: #231c32;
+  --ring: #c59aff;
+  
+  --radius: 2rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+.chart-gradient-mask {
+  mask-image: linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%);
+}
