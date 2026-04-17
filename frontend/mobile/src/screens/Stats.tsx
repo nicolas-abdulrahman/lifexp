@@ -41,7 +41,7 @@ const STAT_ICONS: Record<
   Social: MessageSquare,
 };
 
-const stats: StatItem[] = STATS_DATA.map((raw) => {
+const stats: StatItem[] = STATS_DATA.map((raw, index) => {
   const color = colors[raw.colorKey];
   const Icon = STAT_ICONS[raw.label];
   return {
@@ -69,7 +69,7 @@ export default function Stats() {
           <View style={styles.avatarRing}>
             <Image source={{ uri: AVATAR_URL }} style={styles.avatar} />
           </View>
-          <Text style={styles.headerTitle}>LVL 42 ARCHMAGE</Text>
+          <Text style={styles.headerTitle}></Text>
         </View>
         <TouchableOpacity
           activeOpacity={0.7}
@@ -85,8 +85,6 @@ export default function Stats() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        <HeroCard {...HERO_DATA} />
-
         <View style={styles.statsList}>
           {stats.map((stat) => (
             <StatCard key={stat.label} {...stat} />

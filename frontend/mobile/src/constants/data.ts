@@ -1,3 +1,5 @@
+import { color_vitality } from "../theme";
+
 export const AVATAR_URL =
   "https://lh3.googleusercontent.com/aida-public/AB6AXuCQhynbP1F2hinhCTYjL_vyYUY17a0i7T7keyTctZZ8pEvpQKLQVNKl1QStF8lYFOq4SAVWrM_7Sv54TiNyjySwAYDwjKSra699RVWZGTHQ370W9n8XuNUd8yTL6uj2UqxCVwaowCWLTSwK-JfQ_1lG9oxxSyv5ccnc5rPFNBYlZcF3r6_SsqU9oMZiBiBjke7XdsgbpgisKfZ1HQgERRL_uxC4rXwlmqratzGnjMr2cyA7digDOJvdhSFK9QjMZb1A61gnAHfU-IA";
 
