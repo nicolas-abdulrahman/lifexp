@@ -1,11 +1,7 @@
-import React from 'react';
-import {
-  View,
-  StyleSheet,
-  Platform,
-  useWindowDimensions,
-} from 'react-native';
-import { colors } from '../theme';
+import React from "react";
+import { View, StyleSheet, Platform, useWindowDimensions } from "react-native";
+import { appTheme } from "../theme";
+const colors = appTheme.colors;
 
 interface PhoneFrameProps {
   children: React.ReactNode;
@@ -18,7 +14,7 @@ export default function PhoneFrame({ children }: PhoneFrameProps) {
   const { width, height } = useWindowDimensions();
 
   // On a real device, render children with no extra wrapper at all
-  if (Platform.OS !== 'web') {
+  if (Platform.OS !== "web") {
     return <>{children}</>;
   }
 
@@ -59,15 +55,15 @@ export default function PhoneFrame({ children }: PhoneFrameProps) {
 
 const styles = StyleSheet.create({
   screen: {
-    backgroundColor: '#07040e',
-    alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'hidden',
+    backgroundColor: "#07040e",
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
   } as any,
 
   // Layered ambient glow circles
   glowOuter: {
-    position: 'absolute',
+    position: "absolute",
     width: 640,
     height: 640,
     borderRadius: 320,
@@ -75,7 +71,7 @@ const styles = StyleSheet.create({
     opacity: 0.07,
   },
   glowInner: {
-    position: 'absolute',
+    position: "absolute",
     width: 320,
     height: 320,
     borderRadius: 160,
@@ -89,9 +85,9 @@ const styles = StyleSheet.create({
     height: PHONE_H,
     borderRadius: 54,
     borderWidth: 8,
-    borderColor: '#1c1828',
+    borderColor: "#1c1828",
     backgroundColor: colors.surface,
-    overflow: 'hidden',
+    overflow: "hidden",
     // Outer ring highlight (simulates the polished frame)
     shadowColor: colors.primary,
     shadowOffset: { width: 0, height: 0 },
@@ -103,9 +99,9 @@ const styles = StyleSheet.create({
   // Status bar strip at top
   statusBar: {
     height: 52,
-    backgroundColor: colors.surface,
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: colors.surface.background,
+    alignItems: "center",
+    justifyContent: "center",
     flexShrink: 0,
   },
 
@@ -114,27 +110,27 @@ const styles = StyleSheet.create({
     width: 120,
     height: 34,
     borderRadius: 20,
-    backgroundColor: '#000',
+    backgroundColor: "#000",
   },
 
   // The actual app fills remaining space
   appWindow: {
     flex: 1,
-    overflow: 'hidden',
+    overflow: "hidden",
   } as any,
 
   // Home indicator strip
   homeBar: {
     height: 28,
-    backgroundColor: colors.surface,
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: colors.surface.background,
+    alignItems: "center",
+    justifyContent: "center",
     flexShrink: 0,
   },
   homeIndicator: {
     width: 130,
     height: 5,
     borderRadius: 3,
-    backgroundColor: 'rgba(255,255,255,0.22)',
+    backgroundColor: "rgba(255,255,255,0.22)",
   },
 });

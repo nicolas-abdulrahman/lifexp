@@ -1,6 +1,7 @@
-import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { colors } from '../theme';
+import React from "react";
+import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import { appTheme } from "../theme";
+const { colors } = appTheme;
 
 interface NavItemProps {
   icon: React.ComponentType<{ size: number; color: string }>;
@@ -9,11 +10,20 @@ interface NavItemProps {
   onPress?: () => void;
 }
 
-export default function NavItem({ icon: Icon, label, active = false, onPress }: NavItemProps) {
-  const iconColor = active ? colors.secondary : colors.onSurfaceVariant;
+export default function NavItem({
+  icon: Icon,
+  label,
+  active = false,
+  onPress,
+}: NavItemProps) {
+  const iconColor = active ? colors.secondary : colors.surface.main;
 
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress} activeOpacity={0.7}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={onPress}
+      activeOpacity={0.7}
+    >
       <Icon size={22} color={iconColor} />
       <Text style={[styles.label, { color: iconColor }]}>{label}</Text>
     </TouchableOpacity>
@@ -22,16 +32,16 @@ export default function NavItem({ icon: Icon, label, active = false, onPress }: 
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     gap: 6,
     paddingHorizontal: 12,
     paddingVertical: 4,
   },
   label: {
     fontSize: 9,
-    fontWeight: '700',
-    textTransform: 'uppercase',
+    fontWeight: "700",
+    textTransform: "uppercase",
     letterSpacing: 1.5,
   },
 });

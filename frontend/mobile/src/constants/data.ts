@@ -1,15 +1,13 @@
-import { color_vitality } from "../theme";
-
 export const AVATAR_URL =
   "https://lh3.googleusercontent.com/aida-public/AB6AXuCQhynbP1F2hinhCTYjL_vyYUY17a0i7T7keyTctZZ8pEvpQKLQVNKl1QStF8lYFOq4SAVWrM_7Sv54TiNyjySwAYDwjKSra699RVWZGTHQ370W9n8XuNUd8yTL6uj2UqxCVwaowCWLTSwK-JfQ_1lG9oxxSyv5ccnc5rPFNBYlZcF3r6_SsqU9oMZiBiBjke7XdsgbpgisKfZ1HQgERRL_uxC4rXwlmqratzGnjMr2cyA7digDOJvdhSFK9QjMZb1A61gnAHfU-IA";
 
-export type ColorKey = "primary" | "secondary" | "tertiary";
+// export type ColorKey =
 
 export interface RawStat {
   label: string;
   level: number;
   xpToday: number;
-  colorKey: ColorKey;
+  colorKey: String;
   progress: number;
   chartData: number[];
 }
@@ -27,7 +25,7 @@ export const STATS_DATA: RawStat[] = [
     label: "Vitality",
     level: 18,
     xpToday: 240,
-    colorKey: "tertiary",
+    colorKey: "vitality",
     progress: 75,
     chartData: [30, 50, 40, 80, 60, 45, 90],
   },
