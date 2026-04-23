@@ -140,6 +140,17 @@ export const appTheme = {
     tertiary: "#ff6f7c",
     border: "#2d2542",
     background: "#0f0a1a", // <--- THE DARK PURPLE BACKGROUND
+    quest: {
+      background: "#0f0a1a",
+      surface: "#1c162a",
+      surfaceHigh: "#231c32",
+      accent: skills.vitality.palette[500],       // Base Red
+      accentLight: skills.vitality.palette[400],  // Lighter Red
+      accentDark: skills.vitality.palette[800],   // Deep Red
+      accentDeep: skills.vitality.palette[950],   // Darkest Red
+      accentGlow: skills.vitality.palette[500] + '4D', // 30% opacity
+      textMuted: skills.vitality.palette[300]
+    },
   },
   // ... spacing and textVariants remain the same
 } as const;
