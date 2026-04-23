@@ -28,25 +28,15 @@ import StatCard from "../components/StatCard";
 import NavItem from "../components/NavItem";
 import HeroCard from "../components/HeroCard";
 
-import { appTheme, cardTheme, palletes } from "../theme";
+import { appTheme, cardTheme, skills } from "../theme";
 
 // ── Map raw data to full StatItem (resolves color + injects icon element) ──
-const STAT_ICONS: Record<
-  string,
-  React.ComponentType<{ size: number; color: string }>
-> = {
-  Vitality: Shield,
-  Focus: Target,
-  Intellect: Book,
-  Spirit: Sparkles,
-  Social: MessageSquare,
-};
 
 var i = 0;
-const stats: StatItem[] = Object.entries(palletes).map(([key, c]) => {
+const stats: StatItem[] = Object.entries(skills).map(([key, c]) => {
   const color = c;
-  const raw = STATS_DATA[0];
-  const Icon = STAT_ICONS[raw.label];
+  const raw = STATS_DATA[i];
+  const Icon = c.icon;
   const theme = cardTheme.from(c);
   i++;
   return {
@@ -54,7 +44,7 @@ const stats: StatItem[] = Object.entries(palletes).map(([key, c]) => {
     level: raw.level,
     xpToday: raw.xpToday,
     theme,
-    icon: <Icon size={18} color={theme.glowColor} />,
+    icon: <Icon size={22} color={theme.glowColor} />,
     progress: raw.progress,
     data: raw.chartData,
   };

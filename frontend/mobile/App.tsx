@@ -5,6 +5,7 @@ import Stats from "./src/screens/Stats";
 export default function App() {
   return (
     <PhoneFrame>
+      <></>
       <Stats />
     </PhoneFrame>
   );

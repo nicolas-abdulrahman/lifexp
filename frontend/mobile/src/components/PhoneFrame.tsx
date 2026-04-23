@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   // Status bar strip at top
   statusBar: {
     height: 52,
-    backgroundColor: colors.surface.background,
+    backgroundColor: colors.surface.container,
     alignItems: "center",
     justifyContent: "center",
     flexShrink: 0,
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   // Home indicator strip
   homeBar: {
     height: 28,
-    backgroundColor: colors.surface.background,
+    backgroundColor: colors.surface.container,
     alignItems: "center",
     justifyContent: "center",
     flexShrink: 0,

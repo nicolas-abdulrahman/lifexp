@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { View, Text, StyleSheet, Animated } from "react-native";
 import { Sparkles } from "lucide-react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { colors } from "../theme";
+
 import type { HeroData } from "../types";
 
 export default function HeroCard({
@@ -42,9 +42,7 @@ export default function HeroCard({
   });
 
   return (
-    <Animated.View
-      style={[styles.card, { opacity, transform: [{ scale }] }]}
-    >
+    <Animated.View style={[styles.card, { opacity, transform: [{ scale }] }]}>
       {/* Decorative background sparkle */}
       <View style={styles.decor} pointerEvents="none">
         <Sparkles size={120} color={colors.primary} />
