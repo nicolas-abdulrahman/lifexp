@@ -29,6 +29,7 @@ import NavItem from "../components/NavItem";
 import HeroCard from "../components/HeroCard";
 
 import { appTheme, cardTheme, skills } from "../theme";
+import { Header } from "../components/Header";
 
 // ── Map raw data to full StatItem (resolves color + injects icon element) ──
 
@@ -61,22 +62,6 @@ export default function Stats() {
         backgroundColor={appTheme.colors.surface.main}
       />
 
-      {/* ── Header ── */}
-      <View style={styles.header}>
-        <View style={styles.headerLeft}>
-          <View style={styles.avatarRing}>
-            <Image source={{ uri: AVATAR_URL }} style={styles.avatar} />
-          </View>
-          <Text style={styles.headerTitle}></Text>
-        </View>
-        <TouchableOpacity
-          activeOpacity={0.7}
-          hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-        >
-          <Settings size={20} color={appTheme.colors.primary} />
-        </TouchableOpacity>
-      </View>
-
       {/* ── Scrollable body ── */}
       <ScrollView
         style={styles.scrollView}
@@ -89,14 +74,6 @@ export default function Stats() {
           ))}
         </View>
       </ScrollView>
-
-      {/* ── Bottom navigation ── */}
-      <View style={styles.bottomNav}>
-        <NavItem icon={LayoutList} label="Quests" />
-        <NavItem icon={BarChart3} label="Stats" active />
-        <NavItem icon={Backpack} label="Inventory" />
-        <NavItem icon={Map} label="Map" />
-      </View>
     </Container>
   );
 }

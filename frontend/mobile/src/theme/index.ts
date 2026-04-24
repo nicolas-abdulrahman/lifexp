@@ -125,7 +125,7 @@ export const skills: Record<string, any> = {
   },
 };
 
-export const appTheme = {
+export const appTheme2 = {
   colors: {
     surface: {
       main: "#1a1429", // Deep purple surface
@@ -144,17 +144,139 @@ export const appTheme = {
       background: "#0f0a1a",
       surface: "#1c162a",
       surfaceHigh: "#231c32",
-      accent: skills.vitality.palette[500],       // Base Red
-      accentLight: skills.vitality.palette[400],  // Lighter Red
-      accentDark: skills.vitality.palette[800],   // Deep Red
-      accentDeep: skills.vitality.palette[950],   // Darkest Red
-      accentGlow: skills.vitality.palette[500] + '4D', // 30% opacity
-      textMuted: skills.vitality.palette[300]
+      accent: skills.vitality.palette[500], // Base Red
+      accentLight: skills.vitality.palette[400], // Lighter Red
+      accentDark: skills.vitality.palette[800], // Deep Red
+      accentDeep: skills.vitality.palette[950], // Darkest Red
+      accentGlow: skills.vitality.palette[500] + "4D", // 30% opacity
+      fabGradient: ["#c59aff", "#9547f7"],
+      headerBg: "#100b1b",
+      textMuted: skills.vitality.palette[300],
+    },
+
+    battle: {
+      nodeActive: "#c59aff", // primary
+      nodeLocked: "#4b4558", // outline-variant
+      nodeAvailable: "#ff6f7c", // tertiary
+      lineActive: "#00e3fd", // secondary
+      lineInactive: "rgba(197, 154, 255, 0.2)",
+      bg: "#100b1b",
+      surface: "#1c162a",
     },
   },
   // ... spacing and textVariants remain the same
 } as const;
 
+// ... (keep your skills and ColorScale types)
+
+export const appTheme = {
+  colors: {
+    surface: {
+      main: "#1a1429",
+      container: "#231c35",
+      containerHigh: "#2d2542",
+      bright: "#3d3456",
+      glow: "rgba(197, 154, 255, 0.15)",
+      onSurface: "#ece1f9",
+      onSurfaceVariant: "#b0a7be",
+    },
+    primary: "#c59aff",
+    primaryDim: "#9547f7",
+    secondary: "#00e3fd",
+    tertiary: "#ff6f7c",
+    border: "#2d2542",
+    background: "#0f0a1a",
+
+    quest: {
+      background: "#0f0a1a",
+      surface: "#1c162a",
+      surfaceHigh: "#231c32",
+      fabGradient: ["#c59aff", "#9547f7"],
+      accent: skills.vitality.palette[500],
+      accentLight: skills.vitality.palette[400],
+      accentDark: skills.vitality.palette[800],
+      accentDeep: skills.vitality.palette[950],
+      accentGlow: skills.vitality.palette[500] + "4D",
+      textMuted: skills.vitality.palette[300],
+    },
+    battle: {
+      nodeActive: "#c59aff",
+      nodeLocked: "#4b4558",
+      nodeAvailable: "#ff6f7c",
+      lineActive: "#00e3fd",
+      lineInactive: "rgba(197, 154, 255, 0.2)",
+      bg: "#100b1b",
+      surface: "#1c162a",
+    },
+  },
+
+  // 1. SPACING SCALE (The 8px Grid System)
+  // Use these instead of hardcoded numbers like padding: 17
+  spacing: {
+    xs: 4,
+    sm: 8,
+    md: 16,
+    lg: 24,
+    xl: 32,
+    xxl: 48,
+    page: 20, // Standard screen gutter
+  },
+
+  // 2. BORDER RADIUS PRESETS
+  // Ensures consistency across the app
+  radius: {
+    rigid: 4, // For bars, small buttons
+    soft: 12, // For standard cards
+    glass: 24, // For the "floating" glass cards
+    pill: 999, // For avatars, FABs, badges
+  },
+
+  // 3. TYPOGRAPHY SYSTEM
+  // This removes the need to define fontSize/fontWeight in every component
+  typography: {
+    display: {
+      fontSize: 32,
+      fontWeight: "900" as const,
+      letterSpacing: 2,
+      textTransform: "uppercase" as const,
+    },
+    h1: {
+      fontSize: 24,
+      fontWeight: "800" as const,
+      letterSpacing: 1,
+      textTransform: "uppercase" as const,
+    },
+    h2: {
+      fontSize: 18,
+      fontWeight: "700" as const,
+      letterSpacing: 0.5,
+    },
+    body: {
+      fontSize: 14,
+      fontWeight: "400" as const,
+      lineHeight: 20,
+    },
+    label: {
+      fontSize: 10,
+      fontWeight: "800" as const,
+      letterSpacing: 1.5,
+      textTransform: "uppercase" as const,
+    },
+    stat: {
+      fontSize: 28,
+      fontWeight: "900" as const,
+      fontStyle: "italic" as const,
+    },
+    caption: {
+      fontSize: 11,
+      fontWeight: "500" as const,
+      opacity: 0.7,
+    },
+  },
+} as const;
+
+// Helper type for TypeScript autocomplete
+export type AppTheme = typeof appTheme;
 // Optional: Extract the type from the object so you don't have to write the interface manually
 export interface CardTheme {
   background: string;
