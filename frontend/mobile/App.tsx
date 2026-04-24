@@ -7,10 +7,12 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import BottomNav from "./src/components/BottomNav";
 import Quests from "./src/screens/quests";
 import BattleScreen from "./src/screens/battle";
+import MapScreen from "./src/screens/map";
 const Tab = createBottomTabNavigator();
 const StatsScreen = () => <Stats />;
 const QuestsScreen = () => <Quests />;
 const BattleElement = () => <BattleScreen />;
+const MapElement = () => <MapScreen />;
 export default function App() {
   return (
     <PhoneFrame>
@@ -23,6 +25,7 @@ export default function App() {
           <Tab.Screen name="Stats" component={StatsScreen} />
           <Tab.Screen name="Quests" component={QuestsScreen} />
           <Tab.Screen name="Battle" component={BattleElement} />
+          <Tab.Screen name="Map" component={MapElement} />
         </Tab.Navigator>
       </NavigationContainer>
     </PhoneFrame>

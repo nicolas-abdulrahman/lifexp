@@ -6,7 +6,7 @@ import { appTheme } from "../theme";
 
 interface RitualCardProps {
   title: string;
-  progress: number; // 0 to 100
+  progress: number;
   icon: React.ReactNode;
   color: string;
   streak: string;
@@ -21,7 +21,6 @@ export const QuestCard = ({
   streak,
   isCompleted,
 }: RitualCardProps) => {
-  // SVG Circle Math
   const radius = 15.9155;
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - (progress / 100) * circumference;
@@ -30,18 +29,20 @@ export const QuestCard = ({
     <Pressable style={styles.card}>
       {({ pressed }) => (
         <>
-          {/* Subtle BG Glow (Simulates Hover) */}
           <LinearGradient
             colors={[color + "20", "transparent"]}
             style={[styles.glow, { opacity: pressed ? 1 : 0 }]}
           />
 
-          <Text style={styles.title}>{title}</Text>
+          {/* 1. Added numberOfLines to prevent text wrapping from pushing content down */}
+          <Text style={styles.title} numberOfLines={1} ellipsizeMode="tail">
+            {title}
+          </Text>
 
-          {/* Circular Gauge */}
+          {/* 2. Scaled Gauge from 112 -> 80.
+              Because we use viewBox, the circle math stays perfect. */}
           <View style={styles.gaugeContainer}>
-            <Svg width="112" height="112" viewBox="0 0 36 36">
-              {/* Background Circle */}
+            <Svg width="80" height="80" viewBox="0 0 36 36">
               <Circle
                 cx="18"
                 cy="18"
@@ -50,7 +51,6 @@ export const QuestCard = ({
                 strokeWidth="3.8"
                 fill="none"
               />
-              {/* Progress Circle */}
               <Circle
                 cx="18"
                 cy="18"
@@ -66,7 +66,6 @@ export const QuestCard = ({
             <View style={styles.iconCenter}>{icon}</View>
           </View>
 
-          {/* Streak / Status Badge */}
           <View
             style={[
               styles.badge,
@@ -101,10 +100,10 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     backgroundColor: appTheme.colors.surface.containerHigh,
     borderRadius: appTheme.radius.soft,
-    padding: appTheme.spacing.md,
+    // 3. Reduced padding from md (16) to sm (8) to reclaim 32px of vertical space
+    padding: appTheme.spacing.sm,
     alignItems: "center",
     justifyContent: "center",
-    overflow: "hidden",
     borderWidth: 1,
     borderColor: "rgba(197, 154, 255, 0.1)",
     elevation: 5,
@@ -120,12 +119,14 @@ const styles = StyleSheet.create({
     ...appTheme.typography.h2,
     textAlign: "center",
     color: appTheme.colors.surface.onSurface,
-    marginBottom: appTheme.spacing.sm,
+    // 4. Tightened margin
+    marginBottom: 4,
     zIndex: 10,
+    fontSize: 13, // Slightly smaller to ensure fit
   },
   gaugeContainer: {
-    width: 112,
-    height: 112,
+    width: 80, // Reduced from 112
+    height: 80, // Reduced from 112
     justifyContent: "center",
     alignItems: "center",
     zIndex: 10,
@@ -136,12 +137,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   badge: {
-    marginTop: appTheme.spacing.sm,
+    marginTop: 4, // Reduced from spacing.sm
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#000",
-    paddingHorizontal: 12,
-    paddingVertical: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
     borderRadius: appTheme.radius.pill,
     borderWidth: 1,
     borderColor: "rgba(197, 154, 255, 0.2)",
@@ -149,6 +150,6 @@ const styles = StyleSheet.create({
   },
   badgeText: {
     ...appTheme.typography.label,
-    fontSize: 11,
+    fontSize: 10,
   },
 });

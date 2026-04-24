@@ -125,48 +125,6 @@ export const skills: Record<string, any> = {
   },
 };
 
-export const appTheme2 = {
-  colors: {
-    surface: {
-      main: "#1a1429", // Deep purple surface
-      container: "#231c35", // Lighter purple container
-      containerHigh: "#2d2542",
-      bright: "#3d3456",
-      glow: "rgba(197, 154, 255, 0.15)",
-    },
-    primary: "#c59aff",
-    primaryDim: "#9547f7",
-    secondary: "#00e3fd",
-    tertiary: "#ff6f7c",
-    border: "#2d2542",
-    background: "#0f0a1a", // <--- THE DARK PURPLE BACKGROUND
-    quest: {
-      background: "#0f0a1a",
-      surface: "#1c162a",
-      surfaceHigh: "#231c32",
-      accent: skills.vitality.palette[500], // Base Red
-      accentLight: skills.vitality.palette[400], // Lighter Red
-      accentDark: skills.vitality.palette[800], // Deep Red
-      accentDeep: skills.vitality.palette[950], // Darkest Red
-      accentGlow: skills.vitality.palette[500] + "4D", // 30% opacity
-      fabGradient: ["#c59aff", "#9547f7"],
-      headerBg: "#100b1b",
-      textMuted: skills.vitality.palette[300],
-    },
-
-    battle: {
-      nodeActive: "#c59aff", // primary
-      nodeLocked: "#4b4558", // outline-variant
-      nodeAvailable: "#ff6f7c", // tertiary
-      lineActive: "#00e3fd", // secondary
-      lineInactive: "rgba(197, 154, 255, 0.2)",
-      bg: "#100b1b",
-      surface: "#1c162a",
-    },
-  },
-  // ... spacing and textVariants remain the same
-} as const;
-
 // ... (keep your skills and ColorScale types)
 
 export const appTheme = {
@@ -207,6 +165,16 @@ export const appTheme = {
       lineInactive: "rgba(197, 154, 255, 0.2)",
       bg: "#100b1b",
       surface: "#1c162a",
+    },
+
+    map: {
+      parchment: "#d1b894", // Aged parchment base
+      parchmentDark: "#bca67d",
+      leyLineStart: "#00e3fd", // Secondary
+      leyLineEnd: "#c59aff", // Primary
+      nodeLocked: "#7a7287",
+      nodeActive: "#c59aff",
+      nodeCompleted: "#00e3fd",
     },
   },
 

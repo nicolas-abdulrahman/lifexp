@@ -1,5 +1,12 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { View, Text, StyleSheet, Animated } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Animated,
+  Touchable,
+  TouchableOpacity,
+} from "react-native";
 import Svg, { Circle } from "react-native-svg";
 import type { StatItem } from "../types";
 import { CardTheme, appTheme } from "../theme";
@@ -15,6 +22,7 @@ export default function StatCard({
   xpToday,
   theme,
   icon,
+  go_to,
   progress = 0,
   data = [],
 }: StatItem) {
@@ -70,6 +78,8 @@ export default function StatCard({
     ]).start();
   }, [data, progress]);
 
+  function handlePress(go_to: any) {}
+
   return (
     <Animated.View
       style={[
@@ -80,37 +90,44 @@ export default function StatCard({
         },
       ]}
     >
-      <View style={styles.containerCircle}>
-        <View style={styles.circularWrapper}>
-          <Svg width={70} height={70} viewBox="0 0 100 100" style={styles.svg}>
-            <Circle
-              cx="50"
-              cy="50"
-              r={RADIUS}
-              fill="none"
-              stroke={theme.onSurface}
-              strokeWidth="2"
-              opacity={0.2}
-            />
-            <AnimatedCircle
-              cx="50"
-              cy="50"
-              r={RADIUS}
-              fill="none"
-              stroke={theme.glowColor}
-              strokeWidth="4"
-              strokeDasharray={`${CIRCUMFERENCE}`}
-              strokeDashoffset={strokeOffset}
-              strokeLinecap="round"
-            />
-          </Svg>
+      <TouchableOpacity activeOpacity={0.8} onPress={() => handlePress(go_to)}>
+        <View style={styles.containerCircle}>
+          <View style={styles.circularWrapper}>
+            <Svg
+              width={70}
+              height={70}
+              viewBox="0 0 100 100"
+              style={styles.svg}
+            >
+              <Circle
+                cx="50"
+                cy="50"
+                r={RADIUS}
+                fill="none"
+                stroke={theme.onSurface}
+                strokeWidth="2"
+                opacity={0.2}
+              />
+              <AnimatedCircle
+                cx="50"
+                cy="50"
+                r={RADIUS}
+                fill="none"
+                stroke={theme.glowColor}
+                strokeWidth="4"
+                strokeDasharray={`${CIRCUMFERENCE}`}
+                strokeDashoffset={strokeOffset}
+                strokeLinecap="round"
+              />
+            </Svg>
 
-          <View style={styles.circularInner}>
-            <View style={[styles.iconContainer]}>{icon}</View>
+            <View style={styles.circularInner}>
+              <View style={[styles.iconContainer]}>{icon}</View>
+            </View>
           </View>
+          <Text style={{ color: theme.foreground }}>Lv 8</Text>
         </View>
-        <Text style={{ color: theme.foreground }}>Lv 8</Text>
-      </View>
+      </TouchableOpacity>
 
       <View style={styles.infoContainer}>
         <View style={styles.infoRow}>

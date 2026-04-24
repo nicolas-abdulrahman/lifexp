@@ -7,6 +7,7 @@ export interface StatItem {
   xpToday: number;
   theme: CardTheme;
   icon: React.ReactNode;
+  go_to: any;
   progress: number;
   data: number[];
 }

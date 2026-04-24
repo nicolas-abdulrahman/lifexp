@@ -30,22 +30,34 @@ import HeroCard from "../components/HeroCard";
 
 import { appTheme, cardTheme, skills } from "../theme";
 import { Header } from "../components/Header";
+import VitalityScreen from "./stats/Vitality";
+import FocusScreen from "./stats/Focus";
+import IntellectScreen from "./stats/Intellect";
+import SpiritScreen from "./stats/Spirit";
+import CharismaScreen from "./stats/Charisma";
 
 // ── Map raw data to full StatItem (resolves color + injects icon element) ──
-
+const SCREEN_MAP: Record<string, any> = {
+  vitality: <VitalityScreen />,
+  focus: <FocusScreen />,
+  intelligence: <IntellectScreen />,
+  spirit: <SpiritScreen />,
+  charisma: <CharismaScreen />,
+};
 var i = 0;
 const stats: StatItem[] = Object.entries(skills).map(([key, c]) => {
   const color = c;
   const raw = STATS_DATA[i];
   const Icon = c.icon;
   const theme = cardTheme.from(c);
-  i++;
+  const go_to = i++;
   return {
     label: raw.label,
     level: raw.level,
     xpToday: raw.xpToday,
     theme,
     icon: <Icon size={22} color={theme.glowColor} />,
+    go_to: SCREEN_MAP[key],
     progress: raw.progress,
     data: raw.chartData,
   };
