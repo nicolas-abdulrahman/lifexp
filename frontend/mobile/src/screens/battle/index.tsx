@@ -7,7 +7,7 @@ import {
   ScrollView,
 } from "react-native";
 import { Bolt, Zap, Shield, Timer, Lock } from "lucide-react-native";
-import { appTheme } from "../theme";
+import { appTheme } from "../../theme";
 
 const b = appTheme.colors.battle;
 

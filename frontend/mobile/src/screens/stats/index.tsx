@@ -22,19 +22,19 @@ import {
   Backpack,
   Map,
 } from "lucide-react-native";
-import { AVATAR_URL, STATS_DATA, HERO_DATA } from "../constants/data";
-import type { StatItem } from "../types";
-import StatCard from "../components/StatCard";
-import NavItem from "../components/NavItem";
-import HeroCard from "../components/HeroCard";
+import { AVATAR_URL, STATS_DATA, HERO_DATA } from "../../constants/data";
+import type { StatItem } from "../../types";
+import StatCard from "../../components/StatCard";
+import NavItem from "../../components/NavItem";
+import HeroCard from "../../components/HeroCard";
 
-import { appTheme, cardTheme, skills } from "../theme";
-import { Header } from "../components/Header";
-import VitalityScreen from "./stats/Vitality";
-import FocusScreen from "./stats/Focus";
-import IntellectScreen from "./stats/Intellect";
-import SpiritScreen from "./stats/Spirit";
-import CharismaScreen from "./stats/Charisma";
+import { appTheme, cardTheme, skills } from "../../theme";
+import { Header } from "../../components/Header";
+import VitalityScreen from "../skills/Vitality";
+import FocusScreen from "../skills/Focus";
+import IntellectScreen from "../skills/Intellect";
+import SpiritScreen from "../skills/Spirit";
+import CharismaScreen from "../skills/Charisma";
 
 // ── Map raw data to full StatItem (resolves color + injects icon element) ──
 const SCREEN_MAP: Record<string, any> = {

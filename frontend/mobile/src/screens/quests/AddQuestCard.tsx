@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { PlusCircle } from "lucide-react-native";
-import { appTheme } from "../theme";
+import { appTheme } from "../../theme";
 
 export const AddQuestCard = ({ onPress }: { onPress?: () => void }) => {
   return (

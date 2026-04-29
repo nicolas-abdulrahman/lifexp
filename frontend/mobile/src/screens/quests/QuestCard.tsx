@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import Svg, { Circle } from "react-native-svg";
 import { LinearGradient } from "expo-linear-gradient";
-import { appTheme } from "../theme";
+import { appTheme } from "../../theme";
 
 interface RitualCardProps {
   title: string;

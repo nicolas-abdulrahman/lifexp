@@ -11,8 +11,8 @@ import {
 } from "react-native";
 import { Settings, Plus, Heart, Brain, Sparkles } from "lucide-react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { appTheme } from "../theme";
-import { QuestCard } from "../components/QuestCard";
+import { appTheme } from "../../theme";
+import { QuestCard } from "./QuestCard";
 
 export default function QuestsScreen() {
   const pulseAnim = useRef(new Animated.Value(0)).current;

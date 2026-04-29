@@ -1,18 +1,20 @@
 import React from "react";
 import PhoneFrame from "./src/components/PhoneFrame";
-import Stats from "./src/screens/Stats";
+import Stats from "./src/screens/stats";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import BottomNav from "./src/components/BottomNav";
-import Quests from "./src/screens/quests";
-import BattleScreen from "./src/screens/battle";
-import MapScreen from "./src/screens/map";
+import Quests from "./src/screens/quests/index";
+import BattleScreen from "./src/screens/battle/index";
+import MapScreen from "./src/screens/map/index";
+import VitalityScreen from "./src/screens/skills/Vitality";
 const Tab = createBottomTabNavigator();
 const StatsScreen = () => <Stats />;
 const QuestsScreen = () => <Quests />;
 const BattleElement = () => <BattleScreen />;
 const MapElement = () => <MapScreen />;
+const VitalityElement = () => <VitalityScreen />;
 export default function App() {
   return (
     <PhoneFrame>
@@ -25,6 +27,7 @@ export default function App() {
           <Tab.Screen name="Stats" component={StatsScreen} />
           <Tab.Screen name="Quests" component={QuestsScreen} />
           <Tab.Screen name="Battle" component={BattleElement} />
+          <Tab.Screen name="Inventory" component={VitalityElement} />
           <Tab.Screen name="Map" component={MapElement} />
         </Tab.Navigator>
       </NavigationContainer>
