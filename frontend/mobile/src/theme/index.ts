@@ -138,6 +138,25 @@ export const appTheme = {
       onSurface: "#ece1f9",
       onSurfaceVariant: "#b0a7be",
     },
+    // Add this inside appTheme.colors
+    charisma: {
+      primary: "#78dc77",
+      secondary: "#82db7e",
+      tertiary: "#88d982",
+      surface: "#121412",
+      container: "#1e201e",
+      containerHigh: "#282a28",
+      onSurface: "#e2e3df",
+      onSurfaceVariant: "#becab9",
+      accentGlow: "rgba(120, 220, 119, 0.3)",
+    },
+    skillTree: {
+      primary: "#c59aff", // Purple glow
+      secondary: "#00e3fd", // Cyan glow
+      nodeBg: "#1c162a", // Dark pod background
+      nodeBorder: "#4b4558", // Muted ring border
+      text: "#ece1f9",
+    },
     primary: "#c59aff",
     primaryDim: "#9547f7",
     secondary: "#00e3fd",
@@ -145,7 +164,7 @@ export const appTheme = {
     border: "#2d2542",
     background: "#0f0a1a",
 
-    quest: {
+    ques: {
       background: "#0f0a1a",
       surface: "#1c162a",
       surfaceHigh: "#231c32",
@@ -156,6 +175,21 @@ export const appTheme = {
       accentDeep: skills.vitality.palette[950],
       accentGlow: skills.vitality.palette[500] + "4D",
       textMuted: skills.vitality.palette[300],
+    },
+    quest: {
+      background: "#121417",
+      surface: "#1c1e21",
+      primaryRed: "#ff3b3b",
+      primaryBlue: "#4a6fa5",
+      border: "rgba(255,255,255,0.1)",
+      textMuted: "#899484",
+      surfaceHigh: "#231c32",
+      fabGradient: ["#c59aff", "#9547f7"],
+      accent: skills.vitality.palette[500],
+      accentLight: skills.vitality.palette[400],
+      accentDark: skills.vitality.palette[800],
+      accentDeep: skills.vitality.palette[950],
+      accentGlow: skills.vitality.palette[500] + "4D",
     },
     battle: {
       nodeActive: "#c59aff",

@@ -31,7 +31,7 @@ import VitalityScreen from "../skills/Vitality";
 import FocusScreen from "../skills/Focus";
 import IntellectScreen from "../skills/Intellect";
 import SpiritScreen from "../skills/Spirit";
-import CharismaScreen from "../skills/Charisma";
+import CharismaScreen from "../skills/charisma/index";
 
 const PANEL_HEIGHT = 560;
 
@@ -107,7 +107,7 @@ export default function Stats() {
           {stats.map((stat) => (
             <View
               style={{
-                display: expandedId !== stat.label ? "none" : "flex",
+                display: expandedId !== stat.label ? "flex" : "flex",
               }}
             >
               <StatCard key={stat.label} {...stat} on_press={handleToggle} />
