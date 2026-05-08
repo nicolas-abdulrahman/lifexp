@@ -69,13 +69,13 @@ const stats: StatItem[] = Object.entries(skills).map(([key, c]) => {
   const Icon = c.icon;
   const theme = cardTheme.from(c);
   return {
+    id: raw.label,
     label: raw.label,
     level: raw.level,
     xpToday: raw.xpToday,
     theme,
     icon: <Icon size={22} color={theme.glowColor} />,
     go_to: SCREEN_MAP[key],
-    on_press: handleToggle,
     progress: raw.progress,
     data: raw.chartData,
   };
@@ -110,7 +110,7 @@ export default function Stats() {
                 display: expandedId !== stat.label ? "none" : "flex",
               }}
             >
-              <StatCard key={stat.label} {...stat} />
+              <StatCard key={stat.label} {...stat} on_press={handleToggle} />
             </View>
           ))}
         </View>
