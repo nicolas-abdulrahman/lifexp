@@ -4,32 +4,60 @@ import {
   Text,
   StyleSheet,
   Animated,
-  Touchable,
   TouchableOpacity,
+  LayoutAnimation,
+  Platform,
+  UIManager,
 } from "react-native";
 import Svg, { Circle } from "react-native-svg";
 import type { StatItem } from "../types";
 import { CardTheme, appTheme } from "../theme";
 
+if (
+  Platform.OS === "android" &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
+
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
-const RADIUS = 40; // Reduced from 45
+const RADIUS = 40;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
-const CHART_HEIGHT = 44; // Reduced from 44
+const CHART_HEIGHT = 44;
+
+export interface StatInterface {
+  id: string;
+  label: string;
+  level: number;
+  xpToday: number;
+  theme: CardTheme;
+  icon: React.ReactNode;
+  go_to: any;
+  on_press: (id: string) => void;
+  progress: number;
+  data: number[];
+}
 
 export default function StatCard({
+  id,
   label,
   level,
   xpToday,
   theme,
   icon,
   go_to,
+  on_press,
   progress = 0,
   data = [],
-}: StatItem) {
+}: StatInterface) {
   const strokeOffset = useRef(new Animated.Value(CIRCUMFERENCE)).current;
   const cardOpacity = useRef(new Animated.Value(0)).current;
   const cardTranslateY = useRef(new Animated.Value(20)).current;
+  const expandAnim = useRef(new Animated.Value(0)).current;
+  const heightAnim = useRef(new Animated.Value(0)).current;
+  const opacityAnim = useRef(new Animated.Value(0)).current;
 
+  const [expanded, setExpanded] = useState(false);
   const [barAnims, setBarAnims] = useState(() =>
     data.map(() => new Animated.Value(0)),
   );
@@ -78,19 +106,40 @@ export default function StatCard({
     ]).start();
   }, [data, progress]);
 
-  function handlePress(go_to: any) {}
+  function handlePress() {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    const next = !expanded;
+    const ex = 0;
+    setExpanded(next);
+    on_press(id);
+    Animated.timing(expandAnim, {
+      toValue: next ? 1 : 0,
+      duration: 350,
+      useNativeDriver: true,
+    }).start();
+    Animated.timing(heightAnim, {
+      toValue: next ? 1000 : 0,
+      duration: 350,
+      useNativeDriver: true,
+    }).start();
+  }
 
   return (
     <Animated.View
       style={[
-        styles.card,
+        styles.wrapper,
         {
           opacity: cardOpacity,
           transform: [{ translateY: cardTranslateY }],
         },
       ]}
     >
-      <TouchableOpacity activeOpacity={0.8} onPress={() => handlePress(go_to)}>
+      {/* ── Card row ── */}
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={handlePress}
+        style={styles.card}
+      >
         <View style={styles.containerCircle}>
           <View style={styles.circularWrapper}>
             <Svg
@@ -125,91 +174,115 @@ export default function StatCard({
               <View style={[styles.iconContainer]}>{icon}</View>
             </View>
           </View>
-          <Text style={{ color: theme.foreground }}>Lv 8</Text>
+          <Text style={{ color: theme.foreground }}>Lv {level}</Text>
+        </View>
+
+        <View style={styles.infoContainer}>
+          <View style={styles.infoRow}>
+            <Text style={[styles.statLabel, { color: theme.foreground }]}>
+              {label}
+            </Text>
+            <Text
+              style={[
+                styles.xpText,
+                { color: theme.foreground },
+                { opacity: 0.4 },
+              ]}
+            >
+              +{xpToday} XP
+            </Text>
+          </View>
+
+          <View style={styles.chartContainer}>
+            <View
+              style={[
+                styles.chartHalf,
+                styles.chartHalfTop,
+                { backgroundColor: theme.surfaceChartTop },
+              ]}
+            />
+            <View
+              style={[
+                styles.chartHalf,
+                styles.chartHalfBottom,
+                { backgroundColor: theme.surfaceChartBottom },
+              ]}
+            />
+            <View
+              style={[
+                styles.dividerLine,
+                { backgroundColor: theme.chartDivider },
+              ]}
+            />
+
+            {data.map((val, i) => {
+              const anim = barAnims[i] || new Animated.Value(0);
+              const targetHeight = Math.max(
+                0,
+                ((val || 0) / 100) * (CHART_HEIGHT - 8),
+              );
+
+              return (
+                <Animated.View
+                  key={i}
+                  style={[
+                    styles.bar,
+                    { backgroundColor: theme.glowColor },
+                    {
+                      height: anim.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [0, targetHeight],
+                      }),
+                    },
+                  ]}
+                />
+              );
+            })}
+          </View>
         </View>
       </TouchableOpacity>
 
-      <View style={styles.infoContainer}>
-        <View style={styles.infoRow}>
-          <Text style={[styles.statLabel, { color: theme.foreground }]}>
-            {label}
-          </Text>
-          <Text
-            style={[
-              styles.xpText,
-              { color: theme.foreground },
-              { opacity: 0.4 },
-            ]}
-          >
-            +{xpToday} XP
-          </Text>
-        </View>
-
-        <View style={styles.chartContainer}>
-          <View
-            style={[
-              styles.chartHalf,
-              styles.chartHalfTop,
-              { backgroundColor: theme.surfaceChartTop },
-            ]}
-          />
-          <View
-            style={[
-              styles.chartHalf,
-              styles.chartHalfBottom,
-              { backgroundColor: theme.surfaceChartBottom },
-            ]}
-          />
-          <View
-            style={[
-              styles.dividerLine,
-              { backgroundColor: theme.chartDivider },
-            ]}
-          />
-
-          {data.map((val, i) => {
-            const anim = barAnims[i] || new Animated.Value(0);
-            const targetHeight = Math.max(
-              0,
-              ((val || 0) / 100) * (CHART_HEIGHT - 8),
-            );
-
-            return (
-              <Animated.View
-                key={i}
-                style={[
-                  styles.bar,
-                  { backgroundColor: theme.glowColor },
-                  {
-                    height: anim.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [0, targetHeight],
-                    }),
-                  },
-                ]}
-              />
-            );
-          })}
-        </View>
-      </View>
+      {/* ── Expanded panel ── */}
+      <Animated.View
+        style={[
+          styles.expandedPanel,
+          {
+            opacity: expanded ? expandAnim : 0,
+            height: heightAnim,
+            overflow: "hidden",
+            transform: [
+              {
+                translateY: expandAnim.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [-10, 0],
+                }),
+              },
+            ],
+          },
+        ]}
+      >
+        {go_to}
+      </Animated.View>
     </Animated.View>
   );
 }
 
 function createStyle(theme: CardTheme) {
   return StyleSheet.create({
+    wrapper: {
+      borderRadius: 20,
+      overflow: "hidden",
+    },
     card: {
-      // ADDING TRANSPARENCY: 'CC' at the end makes it ~80% opaque.
-      // This allows the background purple to bleed through, removing the "box" feel.
       backgroundColor: theme.surface + "CC",
       borderRadius: 20,
-      paddingVertical: 12, // Reduced from 18
-      paddingHorizontal: 16, // Reduced from 22
+      paddingVertical: 12,
+      paddingHorizontal: 16,
       flexDirection: "row",
       alignItems: "center",
       gap: 16,
       borderWidth: 1,
-      borderColor: theme.border + "30", // Very subtle edge
+      borderColor: theme.border + "30",
       elevation: theme.shadow?.elevation || 8,
       shadowColor: theme.shadow?.shadowColor || "#000",
       shadowOffset: theme.shadow?.shadowOffset || { width: 0, height: 6 },
@@ -217,7 +290,7 @@ function createStyle(theme: CardTheme) {
       shadowRadius: theme.shadow?.shadowRadius || 12,
     },
     circularWrapper: {
-      width: 70, // Reduced from 90
+      width: 70,
       height: 70,
       justifyContent: "center",
       alignItems: "center",
@@ -232,7 +305,7 @@ function createStyle(theme: CardTheme) {
       justifyContent: "center",
     },
     iconContainer: {
-      width: 30, // Reduced from 38
+      width: 30,
       height: 30,
       borderRadius: 15,
       alignItems: "center",
@@ -253,10 +326,10 @@ function createStyle(theme: CardTheme) {
       flexDirection: "row",
       justifyContent: "space-between",
       alignItems: "baseline",
-      marginBottom: 8, // Reduced from 12
+      marginBottom: 8,
     },
     statLabel: {
-      fontSize: 15, // Reduced from 17
+      fontSize: 15,
       fontWeight: "700",
       letterSpacing: 0.3,
     },
@@ -298,17 +371,11 @@ function createStyle(theme: CardTheme) {
       zIndex: 1,
     },
     containerCircle: {
-      // 1. Establish the size of the container
       width: 80,
       height: 80,
-      borderRadius: 40, // Half of width/height to make it a circle
-
-      // 2. Alignment logic
-      // flexDirection: "column" is default, so items stack top-to-bottom
-      alignItems: "center", // Centers items horizontally (Left-to-Right)
-      justifyContent: "center", // Centers items vertically (Top-to-Bottom)
-
-      // 3. Optional: Add your theme background
+      borderRadius: 40,
+      alignItems: "center",
+      justifyContent: "center",
       backgroundColor: theme.surface,
     },
     bar: {
@@ -316,6 +383,15 @@ function createStyle(theme: CardTheme) {
       borderRadius: 0,
       opacity: 0.9,
       zIndex: 2,
+    },
+    expandedPanel: {
+      borderBottomLeftRadius: 20,
+      borderBottomRightRadius: 20,
+      overflow: "hidden",
+      borderWidth: 1,
+      borderTopWidth: 0,
+      borderColor: theme.border + "30",
+      backgroundColor: theme.surface + "EE",
     },
   });
 }

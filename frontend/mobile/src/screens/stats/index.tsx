@@ -1,12 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
-  Text,
   ScrollView,
-  TouchableOpacity,
   SafeAreaView,
   StatusBar,
-  Image,
   Platform,
   StyleSheet,
 } from "react-native";
@@ -36,21 +33,41 @@ import IntellectScreen from "../skills/Intellect";
 import SpiritScreen from "../skills/Spirit";
 import CharismaScreen from "../skills/Charisma";
 
-// ── Map raw data to full StatItem (resolves color + injects icon element) ──
-const SCREEN_MAP: Record<string, any> = {
-  vitality: <VitalityScreen />,
-  focus: <FocusScreen />,
-  intelligence: <IntellectScreen />,
-  spirit: <SpiritScreen />,
-  charisma: <CharismaScreen />,
+const PANEL_HEIGHT = 560;
+
+const SCREEN_MAP: Record<string, React.ReactNode> = {
+  vitality: (
+    <View style={{ height: PANEL_HEIGHT }}>
+      <VitalityScreen />
+    </View>
+  ),
+  focus: (
+    <View style={{ height: PANEL_HEIGHT }}>
+      <FocusScreen />
+    </View>
+  ),
+  intelligence: (
+    <View style={{ height: PANEL_HEIGHT }}>
+      <IntellectScreen />
+    </View>
+  ),
+  spirit: (
+    <View style={{ height: PANEL_HEIGHT }}>
+      <SpiritScreen />
+    </View>
+  ),
+  charisma: (
+    <View style={{ height: PANEL_HEIGHT }}>
+      <CharismaScreen />
+    </View>
+  ),
 };
-var i = 0;
+
+let idx = 0;
 const stats: StatItem[] = Object.entries(skills).map(([key, c]) => {
-  const color = c;
-  const raw = STATS_DATA[i];
+  const raw = STATS_DATA[idx++];
   const Icon = c.icon;
   const theme = cardTheme.from(c);
-  const go_to = i++;
   return {
     label: raw.label,
     level: raw.level,
@@ -58,15 +75,22 @@ const stats: StatItem[] = Object.entries(skills).map(([key, c]) => {
     theme,
     icon: <Icon size={22} color={theme.glowColor} />,
     go_to: SCREEN_MAP[key],
+    on_press: handleToggle,
     progress: raw.progress,
     data: raw.chartData,
   };
 });
 
 export default function Stats() {
-  // On web the PhoneFrame provides the inset strips, so SafeAreaView is not needed
+  const [expandedId, setExpandedId] = useState<string | null>(null);
   const Container = Platform.OS === "web" ? View : SafeAreaView;
-
+  const handleToggle = (id: string) => {
+    if (id === expandedId) {
+      setExpandedId(null);
+    } else {
+      setExpandedId(id);
+    }
+  };
   return (
     <Container style={styles.container}>
       <StatusBar
@@ -74,7 +98,6 @@ export default function Stats() {
         backgroundColor={appTheme.colors.surface.main}
       />
 
-      {/* ── Scrollable body ── */}
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}
@@ -82,7 +105,13 @@ export default function Stats() {
       >
         <View style={styles.statsList}>
           {stats.map((stat) => (
-            <StatCard key={stat.label} {...stat} />
+            <View
+              style={{
+                display: expandedId !== stat.label ? "none" : "flex",
+              }}
+            >
+              <StatCard key={stat.label} {...stat} />
+            </View>
           ))}
         </View>
       </ScrollView>
@@ -95,44 +124,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: appTheme.colors.background,
   },
-
-  // ── Header
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: 24,
-    paddingVertical: 14,
-    backgroundColor: "rgba(16,11,27,0.92)",
-    borderBottomWidth: 1,
-    borderBottomColor: "rgba(255,255,255,0.05)",
-  },
-  headerLeft: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 12,
-  },
-  avatarRing: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    borderWidth: 2,
-    borderColor: appTheme.colors.primary,
-    overflow: "hidden",
-  },
-  avatar: {
-    width: "100%",
-    height: "100%",
-  },
-  headerTitle: {
-    color: appTheme.colors.primary,
-    fontSize: 11,
-    fontWeight: "900",
-    textTransform: "uppercase",
-    letterSpacing: 3,
-  },
-
-  // ── Scroll
   scrollView: {
     flex: 1,
   },
@@ -142,27 +133,7 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
     gap: 20,
   },
-
-  // ── Stats list
   statsList: {
     gap: 12,
-  },
-
-  // ── Bottom nav
-  bottomNav: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    paddingTop: 14,
-    paddingBottom: 20,
-    paddingHorizontal: 16,
-    backgroundColor: "rgba(28,22,42,0.96)",
-    borderTopWidth: 1,
-    borderTopColor: "rgba(255,255,255,0.05)",
-    elevation: 12,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: -6 },
-    shadowOpacity: 0.5,
-    shadowRadius: 12,
   },
 });

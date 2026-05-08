@@ -9,7 +9,7 @@ import {
 } from "react-native";
 
 const SpiritScreen: React.FC = () => {
-  return <View></View>;
+  return <Text>aaaaa</Text>;
 };
 
 export default SpiritScreen;
